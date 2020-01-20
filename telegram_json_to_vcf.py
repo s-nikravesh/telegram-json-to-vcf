@@ -82,7 +82,7 @@ try:
     cts = json.load(open(json_file))
     cts = cts["contacts"]["list"]
 except Exception as err:
-    raise RuntimeError("An unexpected error happend!") from err
+    raise RuntimeError("An unexpected error happened!") from err
 
 
 with open(vcf_file, "w") as f:
