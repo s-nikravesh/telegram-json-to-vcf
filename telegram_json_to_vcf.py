@@ -1,6 +1,5 @@
 import json
 import os
-import re
 
 
 # vCard template
@@ -47,35 +46,28 @@ if not vcf_file:
 # Check if the entered vcf_file is a directory or a file.
 if os.path.isdir(vcf_file):
     print(f"\n{vcf_file} is a directory! 'Contacts.vcf' is created in it.")
-    if os.name == "posix" and (not vcf_file.endswith("/")):
-        vcf_file += "/"
-    if os.name == "nt" and (not vcf_file.endswith("\\")):
-        vcf_file += "\\"
+    if not vcf_file.endswith(os.sep):
+        vcf_file += os.sep
     vcf_file += "Contacts.vcf"
 
 
 # Check if the entered vcf_file exists.
 # If the file already exists, then the file is renamed.
 if os.path.isfile(vcf_file):
-    pattern = re.compile(
-        r"(?P<path>^([A-Z]:\\)?(\.*[\\/])*(.+[\\/])*)(?P<name>.+\.?.+)"
-        )
-    match = pattern.search(vcf_file)
-    vcf_fname = match.group("name")
-    vcf_fpath = match.group("path")
-
+    # head is the path of vcf_file and tail is its name.
+    head, tail = os.path.split(vcf_file)
     # Trying to extract file name and its extension.
     try:
-        file_name, extension = vcf_fname.rsplit(".")
-    # If the file does not have an extension the it is set to "".
+        file_name, extension = tail.rsplit(".")
+    # If the file does not have an extension then it is set to "".
     except ValueError:
-        file_name = vcf_fname
+        file_name = tail
         extension = ""
     finally:
         new_file_name = file_name + "_new"
 
-    print(f"\n{vcf_fname} already exists. Renaming it to {new_file_name}")
-    vcf_file = vcf_fpath + new_file_name + extension
+    print(f"\n{tail} already exists. Renaming it to {new_file_name}.")
+    vcf_file = head + new_file_name + extension
 
 
 try:
@@ -95,5 +87,3 @@ with open(vcf_file, "w") as f:
         is_okay = ask(vcard, add_all)
         if is_okay:
             f.write(vcard)
-        else:
-            continue
