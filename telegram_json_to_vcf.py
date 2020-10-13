@@ -71,13 +71,13 @@ if os.path.isfile(vcf_file):
 
 
 try:
-    cts = json.load(open(json_file))
+    cts = json.load(open(json_file, encoding='utf8'))
     cts = cts["contacts"]["list"]
 except Exception as err:
     raise RuntimeError("An unexpected error happened!") from err
 
 
-with open(vcf_file, "w") as f:
+with open(vcf_file, "w", encoding='utf8') as f:
     for ct in cts:
         fname = ct["first_name"]
         lname = ct["last_name"]
