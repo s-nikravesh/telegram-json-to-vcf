@@ -7,13 +7,14 @@ import os
 def vcf(fname, lname, cell):
     cell = cell.replace(" ", "")
 
-    vcard = f"""BEGIN:VCARD
-VERSION:3.0
-FN:{fname} {lname}
-N:{lname};{fname};;;
-TEL;TYPE=CELL:{cell}
-END:VCARD
-"""
+    vcard = (
+             f"BEGIN:VCARD\n"
+             "VERSION:3.0\n"
+             f"FN:{fname}{' ' if fname else ''}{lname}\n"
+             f"N:{lname};{fname};;;\n"
+             f"TEL;TYPE=CELL:{cell}\n"
+             "END:VCARD\n"
+    )
 
     return vcard
 
