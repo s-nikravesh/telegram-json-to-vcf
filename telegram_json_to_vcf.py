@@ -67,32 +67,20 @@ if os.path.isdir(vcf_file):
         vcf_file += os.sep
     vcf_file += "Contacts.vcf"
 
-
 # Check if the entered vcf_file exists.
 # If the file already exists, then the file is renamed.
 if os.path.isfile(vcf_file):
     # head is the path of vcf_file and tail is its name.
     head, tail = os.path.split(vcf_file)
-    # Trying to extract file name and its extension.
-    try:
-        file_name, extension = tail.rsplit(".")
-    # If the file does not have an extension then it is set to "".
-    except ValueError:
-        file_name = tail
-        extension = ""
-    finally:
-        new_file_name = file_name + "_new"
-
+    new_file_name = "new_" + tail
     print(f"\n{tail} already exists. Renaming it to {new_file_name}.")
-    vcf_file = head + new_file_name + extension
-
+    vcf_file = head + os.sep + new_file_name
 
 try:
     contacts = json.load(open(json_file, encoding="utf8"))
     contacts = contacts["contacts"]["list"]
 except Exception as err:
     raise RuntimeError("An unexpected error happened!") from err
-
 
 with open(vcf_file, "w", encoding="utf8") as f:
     for contact in contacts:
