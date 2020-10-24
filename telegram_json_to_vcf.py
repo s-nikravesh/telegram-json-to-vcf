@@ -71,17 +71,17 @@ if os.path.isfile(vcf_file):
 
 
 try:
-    cts = json.load(open(json_file, encoding="utf8"))
-    cts = cts["contacts"]["list"]
+    contacts = json.load(open(json_file, encoding="utf8"))
+    contacts = contacts["contacts"]["list"]
 except Exception as err:
     raise RuntimeError("An unexpected error happened!") from err
 
 
 with open(vcf_file, "w", encoding="utf8") as f:
-    for ct in cts:
-        fname = ct["first_name"]
-        lname = ct["last_name"]
-        cell = ct["phone_number"]
+    for contact in contacts:
+        fname = contact["first_name"]
+        lname = contact["last_name"]
+        cell = contact["phone_number"]
         vcard = vcf(fname, lname, cell)
 
         is_okay = ask(vcard, add_all)
