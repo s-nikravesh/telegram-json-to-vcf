@@ -33,7 +33,7 @@ def ask(vcard, add_all=False):
 
 
 parser = argparse.ArgumentParser(
-    usage="Convert exported Telegram contacts JSON file to VCF file"
+    description="Convert exported Telegram contacts JSON file to VCF file"
 )
 
 parser.add_argument(
