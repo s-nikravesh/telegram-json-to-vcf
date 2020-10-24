@@ -29,8 +29,6 @@ def ask(vcard, add_all=False):
             return True
         elif is_okay.lower() in ["n", "no"]:
             return False
-        else:
-            continue
 
 
 json_file = input("JSON path>>> ")
