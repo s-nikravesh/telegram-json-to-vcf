@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 
@@ -31,15 +32,33 @@ def ask(vcard, add_all=False):
             return False
 
 
-json_file = input("JSON path>>> ")
-vcf_file = input("VCF path>>> ")
-add_all = input("""Do you want to add all of the contacts to vcf file?
-"Yes" to add all, "No" to add one by one>>> """)
+parser = argparse.ArgumentParser(
+    usage="Convert exported Telegram contacts JSON file to VCF file"
+)
 
-if not vcf_file:
-    working_dir = os.getcwd()
-    vcf_file = working_dir + "Contacts.vcf"
+parser.add_argument(
+    "json_file",
+    help="input json file",
+    action="store",
+)
 
+parser.add_argument(
+    "vcf_file",
+    help="output vcf file",
+    action="store",
+)
+
+parser.add_argument(
+    "--add-all",
+    help="add all of the contacts without asking",
+    action="store_true",
+    dest="add_all",
+)
+
+args = parser.parse_args()
+json_file = args.json_file
+vcf_file = args.vcf_file
+add_all = args.add_all
 
 # Check if the entered vcf_file is a directory or a file.
 if os.path.isdir(vcf_file):
