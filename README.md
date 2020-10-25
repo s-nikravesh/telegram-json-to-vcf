@@ -12,8 +12,8 @@ Arguments:\
 `vcf_file`: Path to VCF file
 
 Examples:\
-`python3 telegram_json_to_vcf --add-all ./contacts.json ./contacts.vcf`\
-`python3 telegram_json_to_vcf ./contacts.json .`
+`python3 telegram_json_to_vcf.py --add-all ./contacts.json ./contacts.vcf`\
+`python3 telegram_json_to_vcf.py ./contacts.json .`
 
 #### Notes
 1. JSON file must have UTF-8 encoding.
