@@ -8,12 +8,12 @@ def vcf(fname, lname, cell):
     cell = cell.replace(" ", "")
 
     vcard = (
-             f"BEGIN:VCARD\n"
-             "VERSION:3.0\n"
-             f"FN:{fname}{' ' if fname else ''}{lname}\n"
-             f"N:{lname};{fname};;;\n"
-             f"TEL;TYPE=CELL:{cell}\n"
-             "END:VCARD\n"
+        f"BEGIN:VCARD\n"
+        "VERSION:3.0\n"
+        f"FN:{fname}{' ' if fname else ''}{lname}\n"
+        f"N:{lname};{fname};;;\n"
+        f"TEL;TYPE=CELL:{cell}\n"
+        "END:VCARD\n"
     )
 
     return vcard
@@ -84,12 +84,25 @@ except Exception as err:
     raise RuntimeError("An unexpected error happened!") from err
 
 with open(vcf_file, "w", encoding="utf8") as f:
-    for contact in contacts:
-        fname = contact["first_name"]
-        lname = contact["last_name"]
-        cell = contact["phone_number"]
-        vcard = vcf(fname, lname, cell)
+    print("----------------------------------------------------------------")
+    is_all = input("\nSelect the method for adding:\n  [A] All at once\n  [B] Individual\nYour choice (default is [A]): ").upper() or 'A'
+    if is_all.lower() in ["A", "", "a"]:
+        for contact in contacts:
+            fname = contact["first_name"]
+            lname = contact["last_name"]
+            cell = contact["phone_number"]
+            vcard = vcf(fname, lname, cell)
 
-        is_okay = ask(vcard, add_all)
-        if is_okay:
-            f.write(vcard)
+            is_okay = True
+            if is_okay:
+                f.write(vcard)
+    elif is_all.lower() in ["B", "b"]:
+        for contact in contacts:
+            fname = contact["first_name"]
+            lname = contact["last_name"]
+            cell = contact["phone_number"]
+            vcard = vcf(fname, lname, cell)
+
+            is_okay = ask(vcard, add_all)
+            if is_okay:
+                f.write(vcard)
