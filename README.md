@@ -5,14 +5,12 @@ To convert the exported contacts (JSON file) to a VCF file and import it by
 your phone, use this script.
 
 #### Usage
-`python3 telegram_json_to_vcf.py [--add-all] json_file vcf_file`\
+`python3 telegram_json_to_vcf.py json_file vcf_file`\
 Arguments:\
-`--add-all`: Whether to add all of the contacts or add them one by one\
 `json_file`: Path to JSON file\
 `vcf_file`: Path to VCF file
 
-Examples:\
-`python3 telegram_json_to_vcf.py --add-all ./contacts.json ./contacts.vcf`\
+Example:\
 `python3 telegram_json_to_vcf.py ./contacts.json .`
 
 #### Notes
